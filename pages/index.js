@@ -1,8 +1,11 @@
 import Head from 'next/head';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
+import axios from 'axios';
 
+//https://www.themealdb.com
 export default function Home() {
+	console.log(props);
 	return (
 		<>
 			<Head>
@@ -16,4 +19,13 @@ export default function Home() {
 			</main>
 		</>
 	);
+}
+
+export async function getStaticProps() {
+	const response = await axios.get('www.themealdb.com/api/json/v1/1/filter.php?c=Seafood');
+
+	return {
+		props: response,
+		revalidate: 10,
+	};
 }
