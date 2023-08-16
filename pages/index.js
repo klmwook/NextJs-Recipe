@@ -2,10 +2,11 @@ import Head from 'next/head';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
+import Image from 'next/image';
 
 //https://www.themealdb.com
-export default function Home() {
-	console.log(props);
+export default function Home({ meals }) {
+	const newMeals = meals.slice(0, 6);
 	return (
 		<>
 			<Head>
@@ -15,17 +16,33 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className={clsx(styles.main)}>
-				<h1>Main Page</h1>
+				<figure className='visual'>
+					<article className='bg'>
+						{newMeals.map((item) => (
+							<div key={item.idMeal} className='pic' style={{ position: 'relative', width: 400, height: 300 }}>
+								{/* 이미지 속성이 fill로 지정되어 있을 경우 frame 크기에 상관없이 초기 로딩 시 전체 브라우저 크기의 100vw 크기의 용량으로 가져오기 때문에 브라우저 폭에 출력될 크기를 지정해서 이미지 성능 향상 */}
+								<Image src={item.strMealThumb} alt={item.strMeal} priority fill quality={100} sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' />
+							</div>
+						))}
+					</article>
+					<article className='list'>
+						{newMeals.map((item) => (
+							<h2 key={item.idMeal}>{item.strMeal}</h2>
+						))}
+					</article>
+				</figure>
 			</main>
 		</>
 	);
 }
 
 export async function getStaticProps() {
-	const response = await axios.get('www.themealdb.com/api/json/v1/1/filter.php?c=Seafood');
+	//props로 데이터 넘길때에는 data안쪽의 값까지 뽑아낸다음에 전달
+	const { data } = await axios.get('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood');
+	console.log('data fetching on Server', data);
 
 	return {
-		props: response,
-		revalidate: 10,
+		props: data,
+		revalidate: 60 * 60 * 24,
 	};
 }
