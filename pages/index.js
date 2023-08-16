@@ -12,7 +12,7 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className={clsx(styles.main)}>
-				<h1>Main</h1>
+				<h1>Main Page</h1>
 			</main>
 		</>
 	);
