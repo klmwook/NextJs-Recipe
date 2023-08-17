@@ -6,7 +6,10 @@ import { Visual } from '@/components/pic/Visual';
 
 //https://www.themealdb.com
 export default function Home({ meals }) {
-	const newMeals = meals.slice(0, 6);
+	//idMeal
+	//strMeal
+	//strMealThumb
+	console.log(meals);
 	return (
 		<>
 			<Head>
@@ -15,11 +18,11 @@ export default function Home({ meals }) {
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
+
 			<main className={clsx(styles.main)}>
 				<div className={clsx(styles.box)}>
-					<Visual imgSrc={meals[0].strMealThumb} className={styles.customPic}>
-						<span>Hello</span>
-					</Visual>
+					{/* 부모요소에서 직접 아톰컴포넌트에 클래스명을 지정해서 style을 overwrite하고 싶을떄는 클래스를 등록한후 props전달 */}
+					<Visual imgSrc={meals[0].strMealThumb} className={styles.customPic}></Visual>
 				</div>
 			</main>
 		</>
