@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
-import { Visual, VisualWithContent, VisualWithText } from '@/components/pic/Visual';
+import { Visual } from '@/components/pic/Visual';
 
 //https://www.themealdb.com
 export default function Home({ meals }) {
@@ -16,24 +16,11 @@ export default function Home({ meals }) {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className={clsx(styles.main)}>
-				<VisualWithText imgSrc={newMeals[0].strMealThumb} imgTxt={newMeals[0].strMeal} style={{ color: 'yellow', fontSize: 12 }} />
-
-				<VisualWithContent imgSrc={newMeals[1].strMealThumb} style={{ color: 'aqua' }}>
-					<span>자식 요소</span>
-				</VisualWithContent>
-
-				<figure className='visual'>
-					<article className='bg'>
-						{newMeals.map((item) => (
-							<Visual key={item.idMeal} imgSrc={item.strMealThumb} style={{ width: 700, height: 300 }} />
-						))}
-					</article>
-					<article className='list'>
-						{newMeals.map((item) => (
-							<h2 key={item.idMeal}>{item.strMeal}</h2>
-						))}
-					</article>
-				</figure>
+				<div className={clsx(styles.box)}>
+					<Visual imgSrc={meals[0].strMealThumb} priority={true}>
+						<span>Hello</span>
+					</Visual>
+				</div>
 			</main>
 		</>
 	);

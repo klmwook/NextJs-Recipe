@@ -2,28 +2,14 @@ import styles from './Visual.module.scss';
 import clsx from 'clsx';
 import Image from 'next/image';
 
-export function Visual({ imgSrc, style }) {
+export function Visual({ imgSrc, style, imgTxt, children, priority = false }) {
 	return (
 		<div className={clsx(styles.pic)} style={style}>
-			<Image src={imgSrc} alt={imgSrc} priority fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' />
-		</div>
-	);
-}
+			<Image src={imgSrc} alt={imgSrc} priority={priority} fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' />
 
-export function VisualWithText({ imgSrc, style, imgTxt }) {
-	return (
-		<div className={clsx(styles.picWithTxt)} style={style}>
-			<Image src={imgSrc} alt={imgSrc} priority fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' />
-			<h2>{imgTxt}</h2>
-		</div>
-	);
-}
-
-export function VisualWithContent({ imgSrc, style, children }) {
-	return (
-		<div className={clsx(styles.picWithTxt)} style={style}>
-			<Image src={imgSrc} alt={imgSrc} priority fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' />
-			{children}
+			{/* 컴포넌트 호출 시 전달되는 props 유무에 따라서 반환하는 JSX 분기처리  */}
+			{imgTxt && <h2>{imgTxt}</h2>}
+			{children && children}
 		</div>
 	);
 }
