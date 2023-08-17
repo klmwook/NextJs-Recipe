@@ -2,14 +2,10 @@ import Head from 'next/head';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
-import { Visual } from '@/components/pic/Visual';
+import { Pic } from '@/components/atoms/pic/Pic';
+import Title from '@/components/atoms/text/Title';
 
-//https://www.themealdb.com
 export default function Home({ meals }) {
-	//idMeal
-	//strMeal
-	//strMealThumb
-	console.log(meals);
 	return (
 		<>
 			<Head>
@@ -20,10 +16,18 @@ export default function Home({ meals }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
-				<div className={clsx(styles.box)}>
-					{/* 부모요소에서 직접 아톰컴포넌트에 클래스명을 지정해서 style을 overwrite하고 싶을떄는 클래스를 등록한후 props전달 */}
-					<Visual imgSrc={meals[0].strMealThumb} className={styles.customPic}></Visual>
-				</div>
+				<Title
+					url={'/abc'}
+					className={styles.txt}
+					//Style에 컬러값 적용시 hover 값 까지 같이 스크립트로 덮어쓰기 되므로 아예 hover 색상값이 같이 그룹으로 전달
+					//style 객체로 컬러값 자체를 전달하지않으면 module.scss에 있는 기본 호버 스타일 적용
+					// style={{ color: 'violet', hoverColor: 'aqua' }}
+					type={'logo'}
+				>
+					Hello
+				</Title>
+
+				<Title type={'slogan'}>Slogan</Title>
 			</main>
 		</>
 	);
