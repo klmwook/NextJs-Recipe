@@ -17,7 +17,7 @@ export default function Home({ meals }) {
 			</Head>
 			<main className={clsx(styles.main)}>
 				<div className={clsx(styles.box)}>
-					<Visual imgSrc={meals[0].strMealThumb} priority={true}>
+					<Visual imgSrc={meals[0].strMealThumb} className={styles.customPic}>
 						<span>Hello</span>
 					</Visual>
 				</div>
