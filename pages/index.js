@@ -5,8 +5,15 @@ import axios from 'axios';
 import { Pic } from '@/components/atoms/pic/Pic';
 import Title from '@/components/atoms/text/Title';
 import Text from '@/components/atoms/text/Text';
+import Navbar from '@/components/molecules/Navbar';
+import Header from '@/components/organisms/Header';
 
-export default function Home({ meals }) {
+export default function Home({ meals, category }) {
+	//idMeal
+	//strMeal
+	//strMealThumb
+	console.log(category);
+	console.log(meals);
 	return (
 		<>
 			<Head>
@@ -17,21 +24,28 @@ export default function Home({ meals }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
-				<div className={clsx(styles.picFrame)}>
-					<Pic imgSrc={meals[0].strMealThumb} />
-				</div>
+				<Header />
 			</main>
 		</>
 	);
 }
 
 export async function getStaticProps() {
-	//props로 데이터 넘길때에는 data안쪽의 값까지 뽑아낸다음에 전달
-	const { data } = await axios.get('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood');
-	console.log('data fetching on Server', data);
+	const list = [];
+	const { data: obj } = await axios.get('https://www.themealdb.com/api/json/v1/1/categories.php');
+	const items = obj.categories;
+	items.forEach((el) => list.push(el.strCategory));
+	const newList = list.filter((el) => el !== 'Goat' && el !== 'Vegan' && el !== 'Starter');
+
+	const randomNum = Math.floor(Math.random() * newList.length);
+
+	const { data } = await axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${newList[randomNum]}`);
+
+	// const { data } = await axios.get('https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood');
+	// console.log('data fetching on Server', data);
 
 	return {
-		props: data,
-		revalidate: 60 * 60 * 24,
+		props: { ...data, category: newList[randomNum] },
+		revalidate: 10,
 	};
 }
