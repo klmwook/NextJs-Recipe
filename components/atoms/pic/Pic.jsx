@@ -2,7 +2,9 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import styles from './Pic.module.scss';
 import Link from 'next/link';
+import { RingLoader } from 'react-spinners';
 
+//react-spinners
 export function Pic({ imgSrc, style, imgTxt, children, className, priority = false, url }) {
 	return (
 		<div className={clsx(styles.pic, className)} style={style}>
@@ -26,6 +28,9 @@ export function Pic({ imgSrc, style, imgTxt, children, className, priority = fal
 					{url ? <Link href={url}>children</Link> : children}
 				</>
 			)}
+
+			{/* spinner로딩 */}
+			<RingLoader cssOverride={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%)' }} size={100} color={'aqua'} />
 		</div>
 	);
 }

@@ -17,10 +17,9 @@ export default function Home({ meals }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
-				{/* 해당 요소를 활성화 시키고 싶을때에는 props으로 boolean값 전달 */}
-				<Text type={'menu'} tag={'span'} isOn={true}>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque praesentium explicabo laudantium quod iure. Nesciunt?
-				</Text>
+				<div className={clsx(styles.picFrame)}>
+					<Pic imgSrc={meals[0].strMealThumb} />
+				</div>
 			</main>
 		</>
 	);
