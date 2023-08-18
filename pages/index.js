@@ -12,6 +12,7 @@ export default function Home({ meals, category }) {
 			<Head>
 				<title>Main Page</title>
 			</Head>
+			<h2>Main Page</h2>
 		</>
 	);
 }

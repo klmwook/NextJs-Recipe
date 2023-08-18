@@ -1,4 +1,4 @@
-import Layout from '@/components/templete/Layout';
+import Layout from '@/components/templete/Layout/Layout';
 import '@/styles/globals.scss';
 import axios from 'axios';
 
