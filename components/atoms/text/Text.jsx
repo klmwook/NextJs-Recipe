@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import styles from './Text.module.scss';
+import styles from './Text.module.scss'; //css모듈
 import clsx from 'clsx';
 import { Nanum_Myeongjo, Orbitron } from 'next/font/google';
 
@@ -17,16 +17,23 @@ const orbitron = Orbitron({
 	variable: '--font-orbitron',
 });
 
-function Text({ children, url, style, className, type, tag = 'p' }) {
+function Text({ children, url, style, className, type, tag = 'p', isOn = false }) {
+	//컴포넌트 이름, 디폴트 태그명
 	return React.createElement(
 		tag,
 		{
-			className: clsx(styles.txt, className, nanum.variable, orbitron.variable, styles[`txt_${type}`]),
+			className: clsx(
+				styles.txt, //클래스명
+				className,
+				nanum.variable,
+				orbitron.variable,
+				styles[`txt_${type}`], //추가 클래스명
+				isOn && styles.on //전달되는 boolean값에 따라 고유클래스 on추가, module.sass가 자체적으로 고유클래스명으로 변환하기 때문에 부모의 클래스명을 내부 전용 css에 연결하는게 불가
+			),
 			style: url ? style : { ...style, transitionDuration: '0.5s' },
 			onMouseEnter: (e) => (e.target.style.color = style?.hoverColor),
 			onMouseLeave: (e) => (e.target.style.color = style?.color),
 		},
-
 		url
 			? React.createElement(
 					Link,
@@ -40,4 +47,4 @@ function Text({ children, url, style, className, type, tag = 'p' }) {
 	);
 }
 
-export default Text;
+export default Text; //컴포넌트명
