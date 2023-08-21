@@ -3,18 +3,14 @@ import axios from 'axios';
 import Swiper from '@/components/organisms/Swiper/Swiper';
 
 export default function Home({ meals, category }) {
-	//idMeal
-	//strMeal
-	//strMealThumb
-	console.log(category);
-	console.log(meals);
+	const recipe = meals.slice(0, 6);
 	return (
 		<>
 			<Head>
 				<title>Main Page</title>
 			</Head>
 
-			<Swiper recipe={meals} category={category} />
+			<Swiper recipe={recipe} category={category} />
 			{/* 
 				Swiper 컴포넌트 작업 계획
 					1. Visual - Organism
