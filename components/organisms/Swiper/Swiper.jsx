@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay } from 'swiper';
 import 'swiper/css';
 
+//Next에서는 Autoplay, Pagination, Navigation 기능을 활성화하기 위해 SwiperCore.use 사용
 SwiperCore.use([Autoplay]);
 
 //npm i swiper@9
