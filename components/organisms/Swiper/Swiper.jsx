@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay } from 'swiper';
 import { useState } from 'react';
 import 'swiper/css';
+import Silder from '@/components/molecules/Silder/Silder';
 
 //Next에서는 Autoplay, Pagination, Navigation 기능을 활성화하기 위해 SwiperCore.use 사용
 SwiperCore.use([Autoplay]);
@@ -20,6 +21,8 @@ function SwiperWrap({ recipe, category }) {
 		//strMealThumb
 		<figure className={clsx(styles.visual)}>
 			<Title style={{ position: 'absolute', top: '20vh', left: '10vw', fontSize: 50, color: 'orange' }}>{category}</Title>
+
+			<Silder data={recipe} index={Index} />
 
 			<Swiper
 				className={clsx(styles.swiper)}
