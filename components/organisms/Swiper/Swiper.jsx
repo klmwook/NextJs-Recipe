@@ -5,25 +5,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay } from 'swiper';
 import { useState } from 'react';
 import 'swiper/css';
-import Silder from '@/components/molecules/Silder/Silder';
+import Slider from '@/components/molecules/Slider/Slider';
 import Counter from '@/components/molecules/Counter/Counter';
 
-//Next에서는 Autoplay, Pagination, Navigation 기능을 활성화하기 위해 SwiperCore.use 사용
 SwiperCore.use([Autoplay]);
 
-//npm i swiper@9
 function SwiperWrap({ recipe, category }) {
 	const [Index, setIndex] = useState(0);
-	console.log(Index);
 
 	return (
-		//idMeal
-		//strMeal
-		//strMealThumb
 		<figure className={clsx(styles.visual)}>
 			<Title style={{ position: 'absolute', top: '20vh', left: '10vw', fontSize: 50, color: 'orange' }}>{category}</Title>
 
-			<Silder data={recipe} index={Index} />
+			<Slider data={recipe} index={Index} />
 			<Counter index={Index} len={recipe.length} />
 
 			<Swiper
@@ -41,23 +35,19 @@ function SwiperWrap({ recipe, category }) {
 						spaceBetween: 50,
 					},
 				}}
-				//loop 기능 적용하면 슬라이드가 동적으로 추가되기 때문에 순번이 어그러짐
+				//loop기능 적용하면 슬라이드가 동적으로 추가되기 때문에 순번이 어그러짐
 				//아래와 같이 slideChange 이벤트 발생시 자동으로 전달되는 파라미터 객체의 realIndex 프로퍼티 활용
-				onSlideChange={(el) => {
-					setIndex(el.realIndex);
-				}}
+				onSlideChange={(el) => setIndex(el.realIndex)}
 			>
 				{recipe.map((item) => (
-					//SwiperSlide 컴포넌트 안쪽에서 자동으로 JSX 리턴하는 함수 호출 가능
-					//해당 함수에는 파라미터로 현재 컴포넌트 요소가 활성화 되어있는 구분할 수 있는 객체가 전달
+					//SwiperSlide 컴포넌트안쪽에서 자동으로 JSX리턴하는 함수 호출 가능
+					//해당 함수에는 파라미터로 현재 컴포넌트 요소가 활성화되어있는 구분할 수 있는 객체가 전달
 					<SwiperSlide key={item.idMeal} className={clsx(styles.swiperSlide)}>
-						{(props) => {
-							console.log(props);
-
+						{({ isActive }) => {
 							return (
-								<div className={clsx(props.isActive ? styles.on : '')}>
-									<Title tag={'h3'} url={'/'} type={'slogan'}>
-										{item.strMeal.length > 25 ? item.strMeal.substr(0, 25) + '...' : item.strMeal}
+								<div className={clsx(isActive ? styles.on : '')}>
+									<Title tag={'h3'} url={`/detail/${item.idMeal}?name=${item.strMeal}`} type={'slogan'}>
+										{item.strMeal.length > 25 ? item.strMeal.substr(0, 25) : item.strMeal}
 									</Title>
 								</div>
 							);

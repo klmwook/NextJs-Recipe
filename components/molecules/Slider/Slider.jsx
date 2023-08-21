@@ -1,8 +1,8 @@
 import { Pic } from '@/components/atoms/pic/Pic';
-import styles from './Silder.module.scss';
+import styles from './Slider.module.scss';
 import clsx from 'clsx';
 
-function Silder({ data, index }) {
+function Slider({ data, index }) {
 	return (
 		<article className={clsx(styles.slider)}>
 			{data.map((el, idx) => (
@@ -12,4 +12,4 @@ function Silder({ data, index }) {
 	);
 }
 
-export default Silder;
+export default Slider;
