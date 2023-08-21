@@ -13,6 +13,17 @@ export default function Home({ meals, category }) {
 				<title>Main Page</title>
 			</Head>
 			<h2>Main Page</h2>
+			{/* 
+				Swiper 컴포넌트 작업 계획
+					1. Visual - Organism
+					2. Swiper-wrapper - molecules
+					3. Swier-slide - atom
+					4. ImgList - molecules
+					5. ImgSlide - atom
+					6. Controls - molecures
+					7. Counter - molecules
+					8. Button - atom 
+			*/}
 		</>
 	);
 }
