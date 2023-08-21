@@ -50,7 +50,7 @@ function SwiperWrap({ recipe, category }) {
 							console.log(props);
 
 							return (
-								<div className={clsx(isActive ? styles.on : '')}>
+								<div className={clsx(props.isActive ? styles.on : '')}>
 									<Title tag={'h3'} url={'/'} type={'slogan'}>
 										{item.strMeal.length > 25 ? item.strMeal.substr(0, 25) + '...' : item.strMeal}
 									</Title>
