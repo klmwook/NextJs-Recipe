@@ -9,12 +9,16 @@ const nanum = Nanum_Myeongjo({
 	weight: ['400', '700'],
 	preload: true,
 	variable: '--font-nanum', //직접 사용할 변수명 등록, 해당 변수명을 활용하면 클래스 등록X
+	display: 'swap',
+	adjustFontFallback: false,
 });
 const orbitron = Orbitron({
 	subsets: ['latin'],
 	weight: ['400', '700'],
 	preload: true,
 	variable: '--font-orbitron',
+	display: 'swap',
+	adjustFontFallback: false,
 });
 
 /*

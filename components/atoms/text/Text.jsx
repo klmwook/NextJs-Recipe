@@ -3,26 +3,41 @@ import Link from 'next/link';
 import styles from './Text.module.scss'; //css모듈
 import clsx from 'clsx';
 import { Nanum_Myeongjo, Orbitron } from 'next/font/google';
+import { useRouter } from 'next/router';
 
 const nanum = Nanum_Myeongjo({
 	subsets: ['latin'],
 	weight: ['400', '700'],
 	preload: true,
 	variable: '--font-nanum',
+	//block (default) : 외부폰트가 준비안되어있을 때 해당 Text 숨김 처리
+	//swap : 외부폰트 준비가 안되었을때 일단은 기본 system 폰트를 fallback 처리해서 보임 처리
+	display: 'swap',
+	//레이아웃의 최적화를 위해서 자동으로 fallback (대체폰트 출력) 기능 실행
+	adjustFontFallback: false,
 });
 const orbitron = Orbitron({
 	subsets: ['latin'],
 	weight: ['400', '700'],
 	preload: true,
 	variable: '--font-orbitron',
+	display: 'swap',
+	adjustFontFallback: false,
 });
 
 function Text({ children, url, style, className, type, tag = 'p', isOn = false }) {
+	//next/useRouter 훅으로 부터 객체를 반환받고
+	const router = useRouter();
+	//해당 객체에 있는 pathname값 가져오기 (현재 활성회되어있는 라우터 명)
+	const currentPath = router.pathname;
+
 	//컴포넌트 이름, 디폴트 태그명
 	return React.createElement(
 		tag,
 		{
 			className: clsx(
+				//현재 라우터명과 url로 가져온 라우터명이 동일하면 on 클래스 추가
+				currentPath === url ? styles.on : '',
 				styles.txt, //클래스명
 				className,
 				nanum.variable,
