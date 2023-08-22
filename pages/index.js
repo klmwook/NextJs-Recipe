@@ -10,7 +10,9 @@ export default function Home({ meals, category }) {
 				<title>Main Page</title>
 			</Head>
 
-			<Swiper recipe={recipe} category={category} />
+			<main>
+				<Swiper recipe={recipe} category={category} />
+			</main>
 			{/* 
 				Swiper 컴포넌트 작업 계획
 					1. Visual - Organism
