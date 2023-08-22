@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import styles from './style.module.scss';
 import axios from 'axios';
+import Category from '@/components/molecules/Category/Category';
 
 export default function Recipe({ categories }) {
 	// idCategory
@@ -16,9 +17,7 @@ export default function Recipe({ categories }) {
 
 			<section className={styles.recipePage}>
 				<nav>
-					{categories.map((el) => (
-						<button key={el.idCategory}>{el.strCategory}</button>
-					))}
+					<Category items={categories} />
 				</nav>
 			</section>
 		</>
