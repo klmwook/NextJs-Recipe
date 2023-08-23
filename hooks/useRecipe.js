@@ -8,11 +8,14 @@ const getRecipeByCategory = async ({ queryKey }) => {
 	return data.meals;
 };
 
+//enabled 예제 : 파라미터를 넣어서 true/false를 지정하여 나오게 안나오게 할 수 있다.
 export const useRecipeByCategory = (SelectedCategory) => {
 	return useQuery(['RecipeByCategory', SelectedCategory], getRecipeByCategory, {
 		refetchOnMount: false,
 		refetchOnWindowFocus: false,
 		cacheTime: 0,
 		staleTime: 0,
+		retry: 3, //데이터 요청 시도 횟수 (default : 3, 네트워크 상황이 안좋을 때 재시도 횟수 늘림)
+		enabled: true, //useQuery 호출 유무 true(실행) false(실행 안함)(default : true)
 	});
 };
