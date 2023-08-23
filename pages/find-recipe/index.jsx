@@ -4,18 +4,15 @@ import axios from 'axios';
 import Category from '@/components/molecules/Category/Category';
 import { useRecipeByCategory } from '@/hooks/useRecipe';
 import { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 
 export default function Recipe({ categories }) {
-	// idCategory
-	// strCategory
-	// strCategoryDescription
-	// strCategoryThumb
-
-	//react-query를 활용하는 쿼리키 인수값을 State에 담음
+	// idCategory	// strCategory	// strCategoryDescription	// strCategoryThumb
 	const [Selected, setSelected] = useState(categories[0].strCategory);
-	//해당 State값이 바뀔때마다 react-query훅이 호출되면서 새로운 데이터 패칭
-	const { data, isSuccess } = useRecipeByCategory(Selected);
-	//{ data : 서버데이터 , isSuccess : boolean , refetch : function}
+
+	//useDebounce는 컴포넌트의 재랜더링 자체를 막는 것이 아닌 특정 State가 변경될때마다 실행되는 무거운 함수의 호출 자체를 Debouncing 하기 위함
+	const DebouncedSelected = useDebounce(Selected);
+	const { data, isSuccess } = useRecipeByCategory(DebouncedSelected);
 
 	console.log(data);
 
