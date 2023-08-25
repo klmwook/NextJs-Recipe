@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import Card from '@/components/molecules/Card/Card';
 import { Title } from '@/components/atoms/text/Title';
+import { Text } from '@/components/atoms/text/Text';
 import clsx from 'clsx';
 import SearchBar from '@/components/molecules/SearchBar/SearchBar';
 
@@ -22,7 +23,7 @@ export default function Recipe({ categories }) {
 	const DebouncedSearch = useDebounce(Search);
 
 	//debounce되는 값이 변경될때에만 react-query 훅이 호출 됨
-	const { data: dataBySaerch, isSuccess: isSaerch } = useRecipeBySearch(DebouncedSearch);
+	const { data: dataBySearch, isSuccess: isSearch } = useRecipeBySearch(DebouncedSearch);
 	const { data: dataByCategory, isSuccess: isCategory } = useRecipeByCategory(DebouncedSelected, DebouncedSearch);
 
 	//카테고리 버튼을 클릭할 때 실행되는 함수
@@ -58,16 +59,26 @@ export default function Recipe({ categories }) {
 				{/* 카테고리 버튼 클릭할때마다 실행할 핸들러 함수를 onClick props으로 전달 */}
 				<Category items={categories} onClick={handleClickCategory} active={DebouncedSelected} />
 
+				{/* 현재 출력되는 값에 따라 제목 변경 */}
 				<Title type={'slogan'} className={clsx(styles.titCategory)}>
-					{DebouncedSelected}
+					{DebouncedSelected ? DebouncedSelected : `Result: ${DebouncedSearch}`}
 				</Title>
 
 				{/* 검색창에 onChange가 발생할 때 마다 실행할 함수를 onChange props로 전달, value값도 같이 전달 */}
 				<SearchBar inputType={'text'} isBtn={false} placeholder={'search'} value={Search} onChange={setSearch} />
 
 				<div className={clsx(styles.listFrame)}>
-					{isSaerch && dataBySaerch.map((el) => <Card key={el.idMeal} imgSrc={el.strMealThumb} url={`/find-recipe/${el.idMeal}`} txt={el.strMeal} className={clsx(styles.card)} />)}
+					{/* Search데이터가 있을 때 */}
+					{isSearch && dataBySearch.map((el) => <Card key={el.idMeal} imgSrc={el.strMealThumb} url={`/find-recipe/${el.idMeal}`} txt={el.strMeal} className={clsx(styles.card)} />)}
+					{/* Category 데이터가 있을 때 */}
 					{isCategory && dataByCategory.map((el) => <Card key={el.idMeal} imgSrc={el.strMealThumb} url={`/find-recipe/${el.idMeal}`} txt={el.strMeal} className={clsx(styles.card)} />)}
+					{/* Category가 없고, Search가 있고, Search 배열 값이 0일 때 */}
+					{isSearch && dataBySearch.length === 0 && (
+						<Text style={{ fontSize: 22, marginTop: 80, color: 'orange' }}>
+							No Result!! <br />
+							Try another Recipe Name.
+						</Text>
+					)}
 				</div>
 			</section>
 		</>
