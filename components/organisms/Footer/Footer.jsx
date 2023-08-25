@@ -1,5 +1,5 @@
 import { Title } from '@/components/atoms/text/Title';
-import Text from '@/components/atoms/text/Text';
+import { Text } from '@/components/atoms/text/Text';
 import clsx from 'clsx';
 import styles from './Footer.module.scss';
 
