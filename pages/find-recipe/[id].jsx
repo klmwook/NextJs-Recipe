@@ -14,6 +14,7 @@ function Detail() {
 	const { data, isSuccess } = useRecipeById(id);
 	const [TableData, setTableData] = useState([]);
 
+	//무한루프에 빠지지 않게 하기위해서 해당 해당 컴포넌트에서 data가 받아졌을떄 한번한 호출해서 State에 옮겨담기
 	useEffect(() => {
 		if (data) {
 			const keys = Object.keys(data);
@@ -45,6 +46,7 @@ function Detail() {
 				</>
 			)}
 
+			{/* 위에서 State에 옮겨놓은 데이터를 컴포넌트에 전달 */}
 			<Table data={TableData} />
 		</section>
 	);
