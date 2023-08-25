@@ -35,3 +35,17 @@ export const useRecipeBySearch = (DebounceSearch) => {
 		enabled: DebounceSearch !== '', //인수로 들어온 input이 빈 문자열이면 실행 불가
 	});
 };
+
+const getRecipeById = async ({ queryKey }) => {
+	const { data } = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${queryKey[1]}`);
+	return data?.meals[0] || '';
+};
+
+export const useRecipeById = (DebounceId) => {
+	return useQuery(['RecipeById', DebounceId], getRecipeById, {
+		refetchOnMount: false,
+		refetchOnWindowFocus: false,
+		cacheTime: 1000 * 60 * 60 * 24,
+		staleTime: 1000 * 60 * 60 * 24,
+	});
+};
