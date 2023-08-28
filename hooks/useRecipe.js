@@ -38,7 +38,7 @@ export const useRecipeBySearch = (DebounceSearch) => {
 
 const getRecipeById = async ({ queryKey }) => {
 	const { data } = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${queryKey[1]}`);
-	return data?.meals[0] || '';
+	return data.meals !== null ? data.meals[0] : '';
 };
 
 export const useRecipeById = (DebounceId) => {
