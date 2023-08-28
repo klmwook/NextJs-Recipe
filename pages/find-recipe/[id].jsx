@@ -30,7 +30,10 @@ function Detail() {
 			setTableData(ingredients);
 
 			//얘는 마지막이 split이니까 slice로 마지막것만 짜르면 되지 않을까
-			const intructions = data.strInstructions.split('.').map((text) => text.trim().replace('\r\n', '') + '.');
+			const intructions = data.strInstructions
+				.split('.')
+				.map((text) => text.trim().replace('\r\n', '') + '.')
+				.filter((text) => text !== '.');
 			setListData(intructions);
 		}
 	}, [data]);
@@ -51,7 +54,7 @@ function Detail() {
 			{/* 위에서 State에 옮겨놓은 데이터를 컴포넌트에 전달 */}
 			<Table data={TableData} title={data?.strMeal} />
 
-			<List data={ListData} />
+			<List data={ListData} tag={'ol'} />
 		</section>
 	);
 }
