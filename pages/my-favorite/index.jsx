@@ -2,7 +2,7 @@ import Head from 'next/head';
 import clsx from 'clsx';
 import { Title } from '@/components/atoms/text/Title';
 import styles from './favorite.module.scss';
-import { useRecipeById } from '@/hooks/useRecipe';
+import { useRecipeById, useRecipesByIds } from '@/hooks/useRecipe';
 import { useEffect, useState } from 'react';
 
 function Favorite() {
@@ -16,9 +16,11 @@ function Favorite() {
 		}
 	}, []);
 
-	useEffect(() => {
-		console.log(SavedId);
-	}, [SavedId]);
+	// useEffect(() => {
+	// 	console.log(SavedId);
+	// }, [SavedId]);
+
+	useRecipesByIds(SavedId);
 
 	return (
 		<>
