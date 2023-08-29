@@ -8,6 +8,7 @@ import { ClimbingBoxLoader } from 'react-spinners';
 import { Table } from '@/components/atoms/Table/Table';
 import { useState, useEffect } from 'react';
 import List from '@/components/atoms/List/List';
+import Btn from '@/components/atoms/Button/Btn';
 
 function Detail() {
 	const router = useRouter();
@@ -17,10 +18,27 @@ function Detail() {
 	const [ListData, setListData] = useState([]);
 	const [Saved, setSaved] = useState(false);
 
+	//버튼 클릭할떄마다 해당 recipeId를 저장, 삭제해주는 토글함수
+	const handleSave = () => {
+		const savedRecipe = JSON.parse(localStorage.getItem('savedRecipe'));
+
+		if (!Saved) {
+			savedRecipe.push(data.idMeal);
+			localStorage.setItem('savedRecipe', JSON.stringify(savedRecipe));
+			setSaved(true);
+		} else {
+			//배열.splice('자를요소의 순번','갯수')
+			//해당페이지의 레시피 아이디값의 배열의 순번을 구한 다음 해당 순번의 배열값 하나만 제거
+			savedRecipe.splice(savedRecipe.indexOf(data.idMeal), '1');
+			localStorage.setItem('savedRecipe', JSON.stringify(savedRecipe));
+			setSaved(false);
+		}
+	};
+
 	//router로 들어오는 id값이 변경될 때 마다 실행되는 useEffect
 	useEffect(() => {
-		//로컬 저장소에 saveRecipe이름으로 특정 값이 있기만 하면 실행
-		if (localStorage.getItem('saveRecipe')) {
+		//로컬 저장소에 savedRecipe 특정 값이 있기만 하면 실행
+		if (localStorage.getItem('savedRecipe')) {
 			//해당 데이터를 배열로 파싱해서 가져옴
 			const savedRecipe = JSON.parse(localStorage.getItem('savedRecipe'));
 
@@ -84,6 +102,11 @@ function Detail() {
 					<div className={clsx(styles.picFrame)}>
 						<Pic imgSrc={data.strMealThumb} />
 					</div>
+					{/* 버튼 클릭 시 Saved값이 true일때만 모듈 sass로 del 클래스명을 붙이고 해당 고유 클래스명은 atom 컴포넌트로 상속 됨  */}
+					{/* 결과적으로 해당클래스명의 스타일이 atom 컴포넌트의 기본 style을 덮어쓰기 */}
+					<Btn onClick={handleSave} className={Saved && clsx(styles.del)}>
+						{Saved ? 'Remove to My Favorite' : 'Add to My Favorite'}
+					</Btn>
 				</>
 			)}
 
