@@ -59,13 +59,13 @@ export default function Recipe({ categories }) {
 				{/* 카테고리 버튼 클릭할때마다 실행할 핸들러 함수를 onClick props으로 전달 */}
 				<Category items={categories} onClick={handleClickCategory} active={DebouncedSelected} />
 
-				{/* 현재 출력되는 값에 따라 제목 변경 */}
-				<Title type={'slogan'} className={clsx(styles.titCategory)}>
-					{DebouncedSelected ? DebouncedSelected : `Result: ${DebouncedSearch}`}
-				</Title>
+				<article className={clsx(styles.titBox)}>
+					<Title type={'slogan'} className={clsx(styles.titCategory)} style={{ color: '#bbb', hoverColor: '#bbb' }}>
+						{DebouncedSelected ? DebouncedSelected : `Result: ${DebouncedSearch}`}
+					</Title>
 
-				{/* 검색창에 onChange가 발생할 때 마다 실행할 함수를 onChange props로 전달, value값도 같이 전달 */}
-				<SearchBar inputType={'text'} isBtn={false} placeholder={'search'} value={Search} onChange={setSearch} />
+					<SearchBar inputType={'text'} isBtn={false} placeholder={'search'} value={Search} onChange={setSearch} />
+				</article>
 
 				<div className={clsx(styles.listFrame)}>
 					{/* Search데이터가 있을 때 */}
