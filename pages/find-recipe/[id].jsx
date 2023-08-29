@@ -1,5 +1,7 @@
 import { Pic } from '@/components/atoms/pic/Pic';
 import { Title } from '@/components/atoms/text/Title';
+import { Text } from '@/components/atoms/text/Text';
+
 import { useRecipeById } from '@/hooks/useRecipe';
 import { useRouter } from 'next/router';
 import styles from './detail.module.scss';
@@ -107,6 +109,7 @@ function Detail() {
 					<Btn onClick={handleSave} className={Saved && clsx(styles.del)}>
 						{Saved ? 'Remove to My Favorite' : 'Add to My Favorite'}
 					</Btn>
+					{Saved && <Text>You already added this recipe to your Favorite</Text>}
 				</>
 			)}
 
