@@ -26,14 +26,19 @@ function Detail() {
 				ingredient: data[key],
 				measuer: data[`strMeasure${idx + 1}`],
 			}));
-			console.log(ingredients);
+			console.log(data.strInstructions);
 			setTableData(ingredients);
 
-			//얘는 마지막이 split이니까 slice로 마지막것만 짜르면 되지 않을까
 			const intructions = data.strInstructions
-				.split('.')
-				.map((text) => text.trim().replace('\r\n', '') + '.')
-				.filter((text) => text !== '.');
+				//\r\n이 강제 줄바꿈하는 정규표현식이므로 해당 정규표현식을 구분점으로 문장을 나누는게 효율적
+				.split('\r\n')
+				//분리된 문장중에서 .\t라는 탭 띄우기 정규표현식을 제거하기 위해서 일단은 공통화할 수 있는 숫자를 제외한 특수기호만 +로 치환
+				//이후 치환된 +기준으로 뒤에 값만 map으로 리턴
+				//특정 레시피에는 .\t가 없는 문장도 있기 때문에 해당 구분점이 없을떄는 기존 text를 리턴 그렇지 않으면 치환해서 리턴
+				.map((text) => (text.includes('.\t') ? text.replace('.\t', '+').split('+')[1] : text))
+				//원본 문자열에 줄바꿈 정규 표현식이 여러번 들어가 있는 문장의 경우는 빈 문장을 배열로 반환하기 때문에 해당 배열값을 제거
+				.filter((text) => text !== '');
+			console.log(intructions);
 			setListData(intructions);
 		}
 	}, [data]);
