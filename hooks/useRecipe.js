@@ -61,8 +61,8 @@ export const useRecipesByIds = (arr) => {
 		cacheTime: 1000 * 60 * 60 * 24,
 		staleTime: 1000 * 60 * 60 * 24,
 	}));
+
 	//useQueries : 복수개의 useQuery를 병렬식으로 동시에 작업 실행
 	//사용방법 : useQueries([useQuery, useQuery, useQuery])
-
 	return useQueries({ queries });
 };

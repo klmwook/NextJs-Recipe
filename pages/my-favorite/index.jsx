@@ -17,10 +17,6 @@ function Favorite() {
 		}
 	}, []);
 
-	// useEffect(() => {
-	// 	console.log(SavedId);
-	// }, [SavedId]);
-
 	//복수개의 쿼리 요청 결과값을 반환하는 커스텀 훅 호출
 	const result = useRecipesByIds(SavedId);
 	console.log(result);

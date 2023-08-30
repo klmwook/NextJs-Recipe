@@ -67,7 +67,6 @@ function Detail() {
 				ingredient: data[key],
 				measuer: data[`strMeasure${idx + 1}`],
 			}));
-			console.log(data.strInstructions);
 			setTableData(ingredients);
 
 			const intructions = data.strInstructions
@@ -80,7 +79,6 @@ function Detail() {
 				//.map((text) => (/\d[' ']/.test(text) ? text.replace(/\d[' ']/, '+').split('+')[1] : text))
 				//원본 문자열에 줄바꿈 정규 표현식이 여러번 들어가 있는 문장의 경우는 빈 문장을 배열로 반환하기 때문에 해당 배열값을 제거
 				.filter((text) => text !== '');
-			console.log(intructions);
 			setListData(intructions);
 		}
 	}, [data]);

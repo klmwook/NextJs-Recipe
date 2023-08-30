@@ -3,8 +3,18 @@ import Header from '../../organisms/Header/Header';
 import styles from './Layout.module.scss';
 import clsx from 'clsx';
 import Footer from '@/components/organisms/Footer/Footer';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 function Layout({ children }) {
+	const router = useRouter();
+	const [Path, setPath] = useState([]);
+
+	useEffect(() => {
+		const arr = router.asPath.split('/');
+		setPath(arr);
+	}, [router]);
+
 	return (
 		<>
 			<Head>
@@ -14,7 +24,6 @@ function Layout({ children }) {
 			</Head>
 			<main className={clsx(styles.layout)}>
 				<Header />
-
 				<section className={clsx(styles.content)}>{children}</section>
 				<Footer />
 			</main>
