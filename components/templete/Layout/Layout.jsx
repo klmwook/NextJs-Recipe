@@ -33,7 +33,9 @@ function Layout({ children }) {
 
 				<section className={clsx(styles.content)}>
 					{/* 해당 BreadCrumbs의 활성화 유무를 IsShow값으로 연동 */}
-					<BreadCrumbs data={Path} isActive={IsShow} />
+					{router.asPath !== '/' && (
+						<BreadCrumbs data={Path} isActive={IsShow} />
+					)}
 					{children}
 				</section>
 				<Footer />

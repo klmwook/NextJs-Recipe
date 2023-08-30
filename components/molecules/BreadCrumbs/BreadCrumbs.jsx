@@ -31,10 +31,10 @@ function BreadCrumbs({ data, isActive }) {
 					return (
 						<React.Fragment key={idx}>
 							{/* 텍스트가 없을 때 home으로 치환 있으면 위에서 가공한 result 적용 */}
-							<Text tag={'em'} url={`/${name}`} style={{ color: 'white' }}>
+							<Text tag={'em'} url={`/${name}`}>
 								{!result ? 'Home' : result}
 							</Text>
-							<span style={{ color: 'white' }}> / </span>
+							<span> / </span>
 						</React.Fragment>
 					);
 				} else {
@@ -42,7 +42,7 @@ function BreadCrumbs({ data, isActive }) {
 					//마지막 데이터에서 쿼리스트링 값이 있으면 (=이 있으면)뒤에 레시피 아이디가 아닌 레시피명을 출력
 					//빈칸 처리되는 정규표현식을 빈칸으로 대치 (%20 -> ' ')해서 문자열 출력
 					return (
-						<Text tag={'strong'} style={{ color: 'white' }} key={idx}>
+						<Text tag={'strong'} key={idx}>
 							{/* 가공된 result을 바로 활용해서 해당 result값에서 =있으면 가공처리 없으면 그냥 result값 활용 */}
 							{result2}
 						</Text>
