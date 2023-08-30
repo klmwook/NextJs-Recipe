@@ -3,9 +3,10 @@ import styles from './BreadCrumbs.module.scss';
 import clsx from 'clsx';
 import React from 'react';
 
-function BreadCrumbs({ data }) {
+function BreadCrumbs({ data, isActive }) {
 	return (
-		<nav className={clsx(styles.breadcrumbs)}>
+		//IsActive값이 true 일때에만 on클래스 추가
+		<nav className={clsx(styles.breadcrumbs, isActive ? styles.on : '')}>
 			{data.map((name, idx) => {
 				//맨 처음에 있는 문자만 대문자로 치환
 				//name = name.replace(/\b[a-z]/, (letter) => letter.toUpperCase());
@@ -33,7 +34,7 @@ function BreadCrumbs({ data }) {
 							<Text tag={'em'} url={`/${name}`} style={{ color: 'white' }}>
 								{!result ? 'Home' : result}
 							</Text>
-							<span style={{ color: 'white' }}> / </span>;
+							<span style={{ color: 'white' }}> / </span>
 						</React.Fragment>
 					);
 				} else {

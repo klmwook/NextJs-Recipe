@@ -10,10 +10,15 @@ import BreadCrumbs from '@/components/molecules/BreadCrumbs/BreadCrumbs';
 function Layout({ children }) {
 	const router = useRouter();
 	const [Path, setPath] = useState([]);
+	const [IsShow, setIsShow] = useState(true);
 
 	useEffect(() => {
 		const arr = router.asPath.split('/');
 		setPath(arr);
+		//router 경로가 바뀔때마다 순간적으로 IsShow값을 false로 바꿨다가
+		setIsShow(false);
+		//페이지 전환 모션이 끝나는 0.5초 뒤에 다시 true로 변경
+		setTimeout(() => setIsShow(true), 500);
 	}, [router]);
 
 	return (
@@ -25,8 +30,12 @@ function Layout({ children }) {
 			</Head>
 			<main className={clsx(styles.layout)}>
 				<Header />
-				<BreadCrumbs data={Path} />
-				<section className={clsx(styles.content)}>{children}</section>
+
+				<section className={clsx(styles.content)}>
+					{/* 해당 BreadCrumbs의 활성화 유무를 IsShow값으로 연동 */}
+					<BreadCrumbs data={Path} isActive={IsShow} />
+					{children}
+				</section>
 				<Footer />
 			</main>
 		</>

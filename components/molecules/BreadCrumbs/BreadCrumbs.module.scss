@@ -1,2 +1,7 @@
 .breadcrumbs {
+	opacity: 0;
+
+	&.on {
+		opacity: 0.5;
+	}
 }
