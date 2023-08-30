@@ -7,6 +7,7 @@ import { useState } from 'react';
 import 'swiper/css';
 import Slider from '@/components/molecules/Slider/Slider';
 import Counter from '@/components/molecules/Counter/Counter';
+import { Text } from '@/components/atoms/text/Text';
 
 SwiperCore.use([Autoplay]);
 
@@ -15,7 +16,17 @@ function SwiperWrap({ recipe, category }) {
 
 	return (
 		<figure className={clsx(styles.visual)}>
-			<Title style={{ position: 'absolute', top: '20vh', left: '10vw', fontSize: 50, color: 'orange' }}>{category}</Title>
+			<Title
+				style={{
+					position: 'absolute',
+					top: '20vh',
+					left: '10vw',
+					fontSize: 50,
+					color: 'orange',
+				}}
+			>
+				{category}
+			</Title>
 
 			<Slider data={recipe} index={Index} />
 			<Counter index={Index} len={recipe.length} />
@@ -45,11 +56,30 @@ function SwiperWrap({ recipe, category }) {
 					<SwiperSlide key={item.idMeal} className={clsx(styles.swiperSlide)}>
 						{({ isActive, isPrev, isNext }) => {
 							return (
-								<div className={clsx(isActive && styles.on, isPrev && styles.prev, isNext && styles.next)}>
+								<div
+									className={clsx(
+										isActive && styles.on,
+										isPrev && styles.prev,
+										isNext && styles.next
+									)}
+								>
 									{/* 다이나믹 라우팅으로 기본 id값 전달외에 ?뒤에 쿼리 스트링값을 전달하면 해당 값을 다이나믹 라우팅이 적용되는 페이지 안에서 비구조화할당으로 받음 */}
-									<Title tag={'h3'} url={`/find-recipe/${item.idMeal}?name=${item.strMeal}&url=${item.strMealThumb}`} type={'slogan'}>
-										{item.strMeal.length > 25 ? item.strMeal.substr(0, 25) : item.strMeal}
+									<Title
+										tag={'h3'}
+										url={`/find-recipe/${item.idMeal}?name=${item.strMeal}&url=${item.strMealThumb}`}
+										type={'slogan'}
+									>
+										{item.strMeal.length > 25
+											? item.strMeal.substr(0, 25)
+											: item.strMeal}
 									</Title>
+									<Text
+										type={'menu'}
+										url={`/find-recipe/${item.idMeal}?name=${item.strMeal}`}
+										className={clsx(styles.activeBtn)}
+									>
+										View Recipe
+									</Text>
 								</div>
 							);
 						}}
