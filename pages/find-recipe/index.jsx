@@ -23,8 +23,12 @@ export default function Recipe({ categories }) {
 	const DebouncedSearch = useDebounce(Search);
 
 	//debounce되는 값이 변경될때에만 react-query 훅이 호출 됨
-	const { data: dataBySearch, isSuccess: isSearch } = useRecipeBySearch(DebouncedSearch);
-	const { data: dataByCategory, isSuccess: isCategory } = useRecipeByCategory(DebouncedSelected, DebouncedSearch);
+	const { data: dataBySearch, isSuccess: isSearch } =
+		useRecipeBySearch(DebouncedSearch);
+	const { data: dataByCategory, isSuccess: isCategory } = useRecipeByCategory(
+		DebouncedSelected,
+		DebouncedSearch
+	);
 
 	//카테고리 버튼을 클릭할 때 실행되는 함수
 	//Selected값이 변경되고 새롭게 쿼리 요청을 보내는 조건이 Search 값이 비어있어야 가능하므로
@@ -57,21 +61,55 @@ export default function Recipe({ categories }) {
 
 			<section className={styles.recipePage}>
 				{/* 카테고리 버튼 클릭할때마다 실행할 핸들러 함수를 onClick props으로 전달 */}
-				<Category items={categories} onClick={handleClickCategory} active={DebouncedSelected} />
+				<Category
+					items={categories}
+					onClick={handleClickCategory}
+					active={DebouncedSelected}
+				/>
 
 				<article className={clsx(styles.titBox)}>
-					<Title type={'slogan'} className={clsx(styles.titCategory)} style={{ color: '#bbb', hoverColor: '#bbb' }}>
-						{DebouncedSelected ? DebouncedSelected : `Result: ${DebouncedSearch}`}
+					<Title
+						type={'slogan'}
+						className={clsx(styles.titCategory)}
+						style={{ color: '#bbb', hoverColor: '#bbb' }}
+					>
+						{DebouncedSelected
+							? DebouncedSelected
+							: `Result: ${DebouncedSearch}`}
 					</Title>
 
-					<SearchBar inputType={'text'} isBtn={false} placeholder={'search'} value={Search} onChange={setSearch} />
+					<SearchBar
+						inputType={'text'}
+						isBtn={false}
+						placeholder={'search'}
+						value={Search}
+						onChange={setSearch}
+					/>
 				</article>
 
 				<div className={clsx(styles.listFrame)}>
 					{/* Search데이터가 있을 때 */}
-					{isSearch && dataBySearch.map((el) => <Card key={el.idMeal} imgSrc={el.strMealThumb} url={`/find-recipe/${el.idMeal}`} txt={el.strMeal} className={clsx(styles.card)} />)}
+					{isSearch &&
+						dataBySearch.map((el) => (
+							<Card
+								key={el.idMeal}
+								imgSrc={el.strMealThumb}
+								url={`/find-recipe/${el.idMeal}?name=${el.strMeal}`}
+								txt={el.strMeal}
+								className={clsx(styles.card)}
+							/>
+						))}
 					{/* Category 데이터가 있을 때 */}
-					{isCategory && dataByCategory.map((el) => <Card key={el.idMeal} imgSrc={el.strMealThumb} url={`/find-recipe/${el.idMeal}`} txt={el.strMeal} className={clsx(styles.card)} />)}
+					{isCategory &&
+						dataByCategory.map((el) => (
+							<Card
+								key={el.idMeal}
+								imgSrc={el.strMealThumb}
+								url={`/find-recipe/${el.idMeal}`}
+								txt={el.strMeal}
+								className={clsx(styles.card)}
+							/>
+						))}
 					{/* Category가 없고, Search가 있고, Search 배열 값이 0일 때 */}
 					{isSearch && dataBySearch.length === 0 && (
 						<Text style={{ fontSize: 22, marginTop: 80, color: 'orange' }}>
@@ -86,7 +124,9 @@ export default function Recipe({ categories }) {
 }
 
 export async function getStaticProps() {
-	const { data } = await axios.get('https://www.themealdb.com/api/json/v1/1/categories.php');
+	const { data } = await axios.get(
+		'https://www.themealdb.com/api/json/v1/1/categories.php'
+	);
 
 	return {
 		props: { categories: data.categories },

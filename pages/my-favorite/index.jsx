@@ -32,7 +32,15 @@ function Favorite() {
 				{result &&
 					result.map(({ data, isSuccess }) => {
 						if (isSuccess) {
-							return <Card key={data.idMeal} imgSrc={data.strMealThumb} txt={`${data.strMeal}`} className={clsx(styles.card)} />;
+							return (
+								<Card
+									key={data.idMeal}
+									imgSrc={data.strMealThumb}
+									url={`/find-recipe/${data.idMeal}?name=${data.strMeal}`}
+									txt={`${data.strMeal}`}
+									className={clsx(styles.card)}
+								/>
+							);
 						}
 					})}
 			</section>

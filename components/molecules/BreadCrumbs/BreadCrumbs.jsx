@@ -12,7 +12,7 @@ function BreadCrumbs({ data }) {
 					return (
 						<React.Fragment key={idx}>
 							<Text tag={'em'} url={`/${name}`} style={{ color: 'white' }}>
-								{name}
+								{!name ? 'Home' : name}
 							</Text>
 							<span style={{ color: 'white' }}> / </span>;
 						</React.Fragment>
