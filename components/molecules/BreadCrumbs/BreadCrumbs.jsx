@@ -10,7 +10,7 @@ function BreadCrumbs({ data }) {
 				//맨 처음에 있는 문자만 대문자로 치환
 				//name = name.replace(/\b[a-z]/, (letter) => letter.toUpperCase());
 
-				//result : -로 연결되어 있는 문자값을 빈칸으로 치환하고 각 단어의 앞글자만 대문자로 리턴
+				//result : '-'로 연결되어 있는 문자값을 빈칸으로 치환하고 각 단어의 앞글자만 대문자로 리턴
 				const result = name.includes('-')
 					? name
 							// -으로 문자열 분리
@@ -20,13 +20,18 @@ function BreadCrumbs({ data }) {
 							.join(' ')
 					: name;
 
+				//result2 : '=' 있을때 처리
+				const result2 = result.includes('=')
+					? result.split('=')[1].replaceAll('%20', ' ')
+					: result;
+
 				//현재 반복되는 메뉴 순번이 마지막이 아닐때 뒤에 슬러시 붙이고 링크 추가
 				if (idx !== data.length - 1) {
 					return (
 						<React.Fragment key={idx}>
 							{/* 텍스트가 없을 때 home으로 치환 있으면 위에서 가공한 result 적용 */}
 							<Text tag={'em'} url={`/${name}`} style={{ color: 'white' }}>
-								{!name ? 'Home' : result}
+								{!result ? 'Home' : result}
 							</Text>
 							<span style={{ color: 'white' }}> / </span>;
 						</React.Fragment>
@@ -38,9 +43,7 @@ function BreadCrumbs({ data }) {
 					return (
 						<Text tag={'strong'} style={{ color: 'white' }} key={idx}>
 							{/* 가공된 result을 바로 활용해서 해당 result값에서 =있으면 가공처리 없으면 그냥 result값 활용 */}
-							{result.includes('=')
-								? result.split('=')[1].replaceAll('%20', ' ')
-								: result}
+							{result2}
 						</Text>
 					);
 				}
