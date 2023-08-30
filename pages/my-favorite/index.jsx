@@ -4,6 +4,7 @@ import { Title } from '@/components/atoms/text/Title';
 import styles from './favorite.module.scss';
 import { useRecipeById, useRecipesByIds } from '@/hooks/useRecipe';
 import { useEffect, useState } from 'react';
+import Card from '@/components/molecules/Card/Card';
 
 function Favorite() {
 	const [SavedId, setSavedId] = useState([]);
@@ -12,7 +13,7 @@ function Favorite() {
 		if (localStorage.getItem('savedRecipe')) {
 			setSavedId(JSON.parse(localStorage.getItem('savedRecipe')));
 		} else {
-			JSON.stringify(localStorage.setItem('savedRecipe', []));
+			localStorage.setItem('savedRecipe', JSON.stringify([]));
 		}
 	}, []);
 
@@ -32,6 +33,12 @@ function Favorite() {
 
 			<section className={clsx(styles.favoritePage)}>
 				<Title type={'slogan'}>My Favorite Recipe</Title>
+				{result &&
+					result.map(({ data, isSuccess }) => {
+						if (isSuccess) {
+							return <Card key={data.idMeal} imgSrc={data.strMealThumb} txt={`${data.strMeal}`} className={clsx(styles.card)} />;
+						}
+					})}
 			</section>
 		</>
 	);
