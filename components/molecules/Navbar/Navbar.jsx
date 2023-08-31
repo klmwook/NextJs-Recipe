@@ -3,19 +3,17 @@ import styles from './Navbar.module.scss';
 import { Text } from '../../atoms/text/Text';
 import { useRouter } from 'next/router';
 
-function Navbar({ names, gap }) {
-	const router = useRouter();
+function Navbar({ names }) {
+	const path = useRouter().asPath.split('/')[1];
 
 	return (
-		<nav className={clsx(styles.gnb)} style={{ gap: gap }}>
+		<nav className={clsx(styles.gnb)}>
 			{names.map((el) => {
 				const url = el.toLowerCase().split(' ').join('-');
 
-				console.log(`${router.asPath.split('/')[1]} |||||| ${url}`);
-
-				if (router.asPath.split('/')[1] === url) {
+				if (path === url) {
 					return (
-						<Text key={url} isOn={true} type={'menu'} tag={'span'}>
+						<Text key={url} type={'menu'} tag={'span'} isOn={true}>
 							{el}
 						</Text>
 					);
