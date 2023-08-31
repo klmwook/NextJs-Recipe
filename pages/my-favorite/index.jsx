@@ -39,6 +39,7 @@ function Favorite() {
 									url={`/find-recipe/${data.idMeal}?name=${data.strMeal}`}
 									txt={`${data.strMeal}`}
 									className={clsx(styles.card)}
+									type={'horizontal'}
 								/>
 							);
 						}
