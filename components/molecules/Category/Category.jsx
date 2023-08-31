@@ -5,14 +5,14 @@ import clsx from 'clsx';
 function Category({ items, onClick, active }) {
 	return (
 		<nav className={clsx(styles.category)}>
-			{items.map((el) => (
-				//버튼활성화 순서2 - active로 활성화관련 정보를 받아서 내부에서 반복처리할때 활성화여부를 boolen값으로 만들어서 isActive라는 props로 전달
+			{/* 해당 컴포넌트를 범용적으로 활용하기 위해서 items: 출력될 메뉴 데이터, active:핸들러 함수로 전달해야 되는 활성화 값 */}
+			{items.map((el, idx) => (
 				<Btn
-					key={el.idCategory}
-					onClick={() => onClick(el.strCategory)}
-					isActive={el.strCategory === active}
+					key={idx}
+					onClick={() => onClick(items[idx])}
+					isActive={active === items[idx]}
 				>
-					{el.strCategory}
+					{el}
 				</Btn>
 			))}
 		</nav>
