@@ -11,6 +11,7 @@ import { Table } from '@/components/atoms/Table/Table';
 import { useState, useEffect } from 'react';
 import List from '@/components/atoms/List/List';
 import Btn from '@/components/atoms/Button/Btn';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 function Detail() {
 	const router = useRouter();
@@ -19,6 +20,7 @@ function Detail() {
 	const [TableData, setTableData] = useState([]);
 	const [ListData, setListData] = useState([]);
 	const [Saved, setSaved] = useState(false);
+	const { point } = useThemeColor();
 
 	//버튼 클릭할떄마다 해당 recipeId를 저장, 삭제해주는 토글함수
 	const handleSave = () => {
@@ -101,7 +103,7 @@ function Detail() {
 					left: '50%',
 					transform: 'translateX(-50%)',
 				}}
-				color={'orange'}
+				color={point}
 				size={100}
 			/>
 			{data && (
