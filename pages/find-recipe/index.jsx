@@ -57,6 +57,7 @@ export default function Recipe({ categories }) {
 					items={names.current}
 					onClick={handleClickCategory}
 					active={DebouncedSelected}
+					className={clsx(styles.category)}
 				/>
 
 				<article className={clsx(styles.titBox)}>
