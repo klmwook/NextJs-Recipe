@@ -6,42 +6,20 @@ import { BounceLoader } from 'react-spinners';
 import Btn from '@/components/atoms/Button/Btn';
 import { useGlobalData } from '@/hooks/useGlobalContext';
 import { useState } from 'react';
+import Category from '@/components/molecules/Category/Category';
 
 function Footer() {
-	const { setTheme } = useGlobalData();
+	const { setTheme, Theme } = useGlobalData();
 	const [isIdx, setisIdx] = useState(0);
 
 	return (
 		<footer className={clsx(styles.footer)}>
 			<nav>
-				{['Orange', 'Aqua', 'Hotpink'].map((el, idx) => {
-					if (isIdx == idx) {
-						return (
-							<Btn
-								key={idx}
-								onClick={() => {
-									setTheme(`theme${idx + 1}`);
-									setisIdx(idx);
-								}}
-								isActive={true}
-							>
-								{el}
-							</Btn>
-						);
-					} else {
-						return (
-							<Btn
-								key={idx}
-								onClick={() => {
-									setTheme(`theme${idx + 1}`);
-									setisIdx(idx);
-								}}
-							>
-								{el}
-							</Btn>
-						);
-					}
-				})}
+				<Category
+					items={['theme1', 'theme2', 'theme3']}
+					active={Theme}
+					onClick={setTheme}
+				/>
 			</nav>
 
 			<Text type={'util'} style={{ letterSpacing: 2 }}>
