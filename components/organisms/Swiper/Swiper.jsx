@@ -16,7 +16,7 @@ function SwiperWrap({ recipe, category }) {
 
 	return (
 		<figure className={clsx(styles.visual)}>
-			<Title style={{ color: 'orange' }}>{category}</Title>
+			<Title>{category}</Title>
 
 			<Slider data={recipe} index={Index} />
 			<Counter index={Index} len={recipe.length} />

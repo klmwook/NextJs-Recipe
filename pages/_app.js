@@ -1,5 +1,6 @@
 import Layout from '@/components/templete/Layout/Layout';
 import '@/styles/globals.scss';
+import '@/styles/theme.scss';
 import axios from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
