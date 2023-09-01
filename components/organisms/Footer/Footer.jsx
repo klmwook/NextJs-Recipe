@@ -15,12 +15,7 @@ function Footer() {
 	return (
 		<footer className={clsx(styles.footer)}>
 			<nav>
-				<Category
-					items={['theme1', 'theme2', 'theme3']}
-					names={['Orange', 'Aqua', 'Hot pink']}
-					active={Theme}
-					onClick={setTheme}
-				/>
+				<Category items={['theme1', 'theme2', 'theme3']} names={['Orange', 'Aqua', 'Hot pink']} active={Theme} onClick={setTheme} style={{ marginBottom: 0 }} />
 			</nav>
 
 			<Text type={'util'} style={{ letterSpacing: 2 }}>
